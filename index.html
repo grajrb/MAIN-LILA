@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Tic-Tac-Toe Arena | Multiplayer Game</title>
+
+    <!-- Progressive Web App metadata -->
+    <meta name="description" content="Play Tic-Tac-Toe online with friends or against AI. Multiplayer, single-player, and computer modes available." />
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Open Graph metadata -->
+    <meta property="og:title" content="Tic-Tac-Toe Arena - Multiplayer Game" />
+    <meta property="og:description" content="Play Tic-Tac-Toe online with friends or against AI" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Prevent text selection and touch callouts for better mobile UX -->
+    <style>
+      * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Allow text selection for specific elements */
+      input, textarea, [contenteditable] {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+      }
+      
+      /* Improve touch targets */
+      button, [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
