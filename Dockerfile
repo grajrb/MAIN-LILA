@@ -1,5 +1,5 @@
-# Use the official Node.js runtime as base image
-FROM node:18-alpine
+# Use minimal Node.js image for faster builds
+FROM node:18-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy backend package.json and package-lock.json (if available)
 COPY backend/package*.json ./
 
-# Install dependencies
-RUN npm ci --production
+# Install dependencies quickly
+RUN npm install --production --no-audit --no-fund --no-optional
 
 # Copy the backend application code
 COPY backend/ .
