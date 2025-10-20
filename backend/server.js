@@ -50,10 +50,35 @@ async function initDatabase() {
 
 // Server configuration
 const PORT = parseInt(process.env.PORT || '7350');
-const wss = new WebSocketServer({ port: PORT });
 
-console.log(`[server] WebSocket server listening on port ${PORT}`);
-console.log(`[server] Environment: ${process.env.NODE_ENV || 'development'}`);
+// Create HTTP server first for health checks
+const server = http.createServer((req, res) => {
+  if (req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ 
+      status: 'healthy', 
+      players: players.size,
+      matches: matches.size,
+      queue: matchmakingQueue.length,
+      timestamp: new Date().toISOString(),
+      database: 'connected',
+      websocket: 'running'
+    }));
+  } else {
+    res.writeHead(404);
+    res.end('Not Found');
+  }
+});
+
+// Create WebSocket server using the same HTTP server
+const wss = new WebSocketServer({ server });
+
+// Start the server
+server.listen(PORT, () => {
+  console.log(`[server] WebSocket server listening on port ${PORT}`);
+  console.log(`[server] Health endpoint available at /health`);
+  console.log(`[server] Environment: ${process.env.NODE_ENV || 'development'}`);
+});
 
 // Game state management
 const matchmakingQueue = [];
@@ -416,27 +441,6 @@ wss.on('connection', (ws) => {
       players.delete(playerId);
     }
   });
-});
-
-// Health check endpoint for Railway
-const server = http.createServer((req, res) => {
-  if (req.url === '/health') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ 
-      status: 'healthy', 
-      players: players.size,
-      matches: matches.size,
-      queue: matchmakingQueue.length 
-    }));
-  } else {
-    res.writeHead(404);
-    res.end('Not Found');
-  }
-});
-
-const httpPort = PORT + 1;
-server.listen(httpPort, () => {
-  console.log(`[http] Health check server on port ${httpPort}`);
 });
 
 // Initialize database on startup
