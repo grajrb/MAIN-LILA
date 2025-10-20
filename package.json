@@ -9,7 +9,10 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "mock:nakama": "bun mock-nakama-server.ts"
+    "mock:nakama": "bun mock-nakama-server.ts",
+    "start": "cd backend && npm start",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:install": "cd backend && npm install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

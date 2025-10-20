@@ -1,9 +1,16 @@
 # Nixpacks configuration for Railway deployment
+[phases.setup]
+nixPkgs = ["nodejs-18_x", "npm-9_x"]
+
+[phases.install]
+cmds = ["cd backend && npm ci --production"]
+
 [phases.build]
-cmds = ["cd backend && npm ci"]
+cmds = ["echo 'No build step required for backend'"]
 
 [phases.start]
 cmd = "cd backend && npm start"
 
 [variables]
 NODE_ENV = "production"
+PORT = "7350"
