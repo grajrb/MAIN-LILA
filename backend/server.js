@@ -2,6 +2,7 @@
 // Deployed on Railway with PostgreSQL database
 import { WebSocketServer } from 'ws';
 import pg from 'pg';
+import http from 'http';
 import 'dotenv/config';
 
 const { Pool } = pg;
@@ -418,7 +419,6 @@ wss.on('connection', (ws) => {
 });
 
 // Health check endpoint for Railway
-const http = require('http');
 const server = http.createServer((req, res) => {
   if (req.url === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
