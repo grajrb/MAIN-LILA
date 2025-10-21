@@ -1,0 +1,16 @@
+{
+  "name": "Tic-Tac-Toe Arena",
+  "short_name": "🎮 TicTacToe",
+  "description": "Ultimate Tic-Tac-Toe Arena! Play multiplayer online or challenge AI opponents.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
